@@ -1,8 +1,10 @@
 Todolist::Application.routes.draw do
   devise_for :users
 
-  get '/todo_list' => 'api#todo_list'
+  get '/todo_list' => 'entries#todo_list'
   post '/authentication_token' => 'api#authentication_token', :as => :authentication_token
+
+  resources :entries
 
   root :to => 'index#index'
 

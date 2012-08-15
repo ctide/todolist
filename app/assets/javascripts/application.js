@@ -13,5 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require bootstrap-datepicker
+//= require jquery.tablesorter.min
+//= require jquery.tablesorter.staticrow.min
 //= require_tree .
 

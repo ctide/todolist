@@ -1,0 +1,62 @@
+.priority {
+  width: 90px;
+}
+
+input {
+  margin-bottom: 0px;
+}
+
+tr:hover .checkmark {
+  display: inline;
+}
+
+td {
+  padding: 8px 8px 2px !important;
+  height: 38px;
+}
+
+.checkmark {
+  font-size: 30px;
+  line-height: 25px;
+  cursor: pointer;
+  margin-right: -2px;
+  display: none;
+}
+
+.checkmark:after {
+  content: '☐';
+}
+
+.checkmark:hover:after {
+  content: '☑';
+}
+
+.task {
+  width: 710px;
+}
+
+.template {
+  display: none;
+}
+
+td.new-row .checkmark {
+  display: none !important;
+}
+
+td.edit {
+  input.duedate,select.priority,input.update-task {
+    display: inline-block;
+  }
+  .contents {
+    display: none;
+  }
+}
+
+input.duedate,select.priority,input.update-task {
+  display: none;
+}
+
+span.contents {
+  line-height: 28px;
+  margin-left: 5px;
+}

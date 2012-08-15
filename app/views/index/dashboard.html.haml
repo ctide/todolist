@@ -1,0 +1,32 @@
+%table.table.table-bordered.tablesorter
+  %thead
+    %tr
+      %th{:width => 24}
+      %th Task
+      %th Due Date
+      %th Priority
+  %tbody
+    %tr.new-row.static
+      %td
+        %span.checkmark
+      %td
+        %input.task.new-task{:placeholder => "New Task...", :type => "text"}
+      %td
+      %td.priority
+        %span.contents.hidden New
+    %tr.template
+      %td
+        %span.checkmark
+      %td.task
+        %span.contents
+        %input.task.update-task{:type => "text", :'data-field' => 'task'}
+      %td.duedate
+        %span.contents
+        %input.duedate{:type => "text", :'data-date-format' => 'mm/dd/yyyy', 'data-date' => "#{Date.today.strftime('%m/%d/%Y')}", :'data-field' => 'due_date'}
+      %td.priority
+        %span.contents
+        %select.priority{:'data-field' => 'priority'}
+          %option{:value => ''}
+          %option{:value => 'Low'} Low
+          %option{:value => 'Medium'} Medium
+          %option{:value => 'High'} High

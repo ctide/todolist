@@ -9,4 +9,6 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   #
   has_many :entries
+  has_many :undone_entries, :source => :entries, :class_name => "Entry", :conditions => { :entries => { :completed => false } }
+
 end
