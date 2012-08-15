@@ -34,3 +34,6 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+group :test do
+  gem 'spork'
+end
