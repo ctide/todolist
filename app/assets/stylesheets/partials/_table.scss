@@ -31,9 +31,9 @@ td {
   content: '☑';
 }
 
-.task {
-  width: 710px;
-}
+/*.task {*/
+  /*width: 710px;*/
+/*}*/
 
 .template {
   display: none;
@@ -54,6 +54,7 @@ td.edit {
 
 input.duedate,select.priority,input.update-task {
   display: none;
+  width: 90%;
 }
 
 span.contents {
