@@ -3,9 +3,9 @@ require 'spec_helper'
 describe IndexController do
 
   context '#index' do
-    it "should redirect to sign in if no one signed in" do
+    it "should render the index template if no one signed in" do
       get :index
-      response.should redirect_to(new_user_session_path)
+      response.should render_template('index')
     end
 
     context '#user signed in' do

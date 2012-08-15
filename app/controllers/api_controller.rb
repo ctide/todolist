@@ -1,6 +1,4 @@
 class ApiController < ApplicationController
-  before_filter :authenticate_user!, :except => :authentication_token
-
   def authentication_token
     user = User.find(:first, :conditions => ["email ILIKE ?", params[:email]])
     raise AccessDeniedError if user.nil?
