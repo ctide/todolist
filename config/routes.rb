@@ -1,6 +1,9 @@
 Todolist::Application.routes.draw do
   devise_for :users
 
+  get '/todo_list' => 'api#todo_list'
+  post '/authentication_token' => 'api#authentication_token', :as => :authentication_token
+
   root :to => 'index#index'
 
   # The priority is based upon order of creation:
