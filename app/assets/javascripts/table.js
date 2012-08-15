@@ -3,10 +3,6 @@ $(document).ready(function() {
     data.forEach(function(elem) {
       displayRow(elem);
     });
-    $('input.duedate').datepicker().on('changeDate', function(ev) {
-      $(this).change();
-      $(this).blur();
-    });
     $('.tablesorter').tablesorter({ widgets: ['staticRow'], sortList: [[3, 0]], textExtraction: extractData });
   });
 
@@ -25,7 +21,7 @@ $(document).ready(function() {
     $('.edit').toggleClass('edit');
   });
 
-  $('body').click(function() {
+  $('html').click(function() {
     $('.edit').toggleClass('edit');
     $('.datepicker.dropdown-menu').hide();
   });
@@ -35,7 +31,7 @@ $(document).ready(function() {
     $.post('/entries', { 'entry' : {'task' : $('.new-task').val()} }, function(data) {
       displayRow(data);
       $('.new-row input').val('')
-      $('.new-row input').attr('disabled', 'false');
+      $('.new-row input').attr('disabled', false);
     });
   });
 });
@@ -43,7 +39,6 @@ $(document).ready(function() {
 function displayRow(data) {
   $new = $('.template').clone();
   $new.attr('id', data.id);
-  $('tbody').append($new);
   $new.find('.task .contents').html(data.task);
   $new.find('.task .update-task').val(data.task);
   if (data.due_date) {
@@ -56,8 +51,12 @@ function displayRow(data) {
     $new.find('.priority select').val(data.priority);
     $new.find('.priority .contents').html(data.priority);
   }
-  $('#' + data.id).removeClass('template');
   $new.removeClass('template').addClass('valid-row');
+  $('.new-row').after($new);
+  $new.find('input.duedate').datepicker().on('changeDate', function(ev) {
+      $(this).change();
+      $(this).blur();
+    });
 }
 
 function completed(row) {
