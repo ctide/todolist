@@ -17,5 +17,9 @@ class EntriesController < ApplicationController
     render :json => current_user.undone_entries
   end
 
+  def finished_items
+    render :json => current_user.finished_entries
+  end
+
 
 end

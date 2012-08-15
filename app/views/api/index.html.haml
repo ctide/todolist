@@ -1,0 +1,150 @@
+.hero-unit
+  %h1 API Documentation
+  %p Todo List offers a simple way to access your todo list from any other device or application you want.  Read on to find out how!
+
+%section#authentication
+  .page-header
+    %h1 Authentication
+  - if user_signed_in?
+    .alert.alert-info
+      %strong Skip Ahead!
+      If you simply want to get started immediately playing with the rest of the API, you can use your authentication token by copying it from the following block:
+      %span.black= current_user.authentication_token
+  %p
+    All requests to the API must be accompanied by an authentication token that will authorize the user to access their list.  To acquire a user's authentication, you'll need to post their credentials to '/authentication_token'.
+    Here's an example of how you would do that with curl:
+
+  %p
+    %code curl -d "email=email&password=password" http://#{request.host_with_port}/authentication_token
+
+  %p Assuming those are correct credentials, you should get back a bit of JSON that looks like this:
+
+  %p
+    %code {"auth_token":"icL9oomyG56ap3Zbyz1W","user":{"user_id":1}}
+
+  %p And now you're ready to start working with the API directly.
+
+%section#access
+  .page-header
+    %h1
+      Requests
+      %small How to properly form requests
+
+  %p
+    Requests are authorized by passing the authentication token in a
+    %code X-AUTHENTICATION-TOKEN
+    header.  You can do pass this with curl as such:
+
+  %p
+    %code
+      curl -H "X-AUTHENTICATION-TOKEN:
+      %strong> token
+      " http://#{request.host_with_port}/todo_list
+
+  %p Assuming you've passed a valid authentication token, you should get a list of that user's unfinished todo list entries.
+
+%section#querying
+  .page-header
+    %h1
+      Querying
+      %small How to extract data from the backend
+
+  %p
+    There are currently 2 endpoints established for querying data out of the system.
+
+  %h3 /todo_list
+
+  %p
+    The
+    %code todo_list
+    endpoint will return all of the user's unfinished todo item entries.
+  %p
+    %a{:href => '/todo_list'} Your response to this endpoint
+
+  %h3 /finished_items
+
+  %p
+    The
+    %code finished_items
+    endpoint will return all of a user's finished tasks.
+
+  %p
+    %a{:href => '/finished_items'} Your response to this endpoint
+
+%section#updating
+  .page-header
+    %h1
+      Updating
+      %small How to push back changes
+
+  %p
+    There are two main endpoints used for push data back into the system.  One is for creating new todo items, and the other is for updating existing items. Both of these endpoints expect data to be posted as a JSON
+    object wrapped by a 'entry' object.  The following properties are currently accepted:
+
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th{:style => "width: 100px;"}Name
+        %th{:style => "width: 50px;"}type
+        %th description
+    %tbody
+      %tr
+        %td task
+        %td string
+        %td This is the text contents of the given task item
+      %tr
+        %td due_date
+        %td datetime
+        %td This is the full UTC timestamp for the due date
+      %tr
+        %td priority
+        %td string
+        %td Current web app supports 'High', 'Medium', 'Low', and null values, but feel free to use whatever structure you prefer
+      %tr
+        %td completed
+        %td boolean
+        %td Boolean that defines whether or not this task has been completed
+
+  %p Example:
+
+  %p
+    %code
+      {"entry":{"task":"Pick up the milk.", "due_date":"2012-08-22T07:00:00Z","priority":"Low"}
+
+  %p
+    And, with curl:
+
+  %p
+    %code
+      curl  -H "Accept: application/json" -H "Content-type: application/json" -H "X-AUTHENTICATION-TOKEN:
+      %strong> token
+      " -i -X POST -d '{"entry":{"task":"Pick up the milk.", "due_date":"2012-08-22T07:00:00Z","priority":"Low"}}' http://todolist.dev/entries
+
+  %p
+    All requests to both of the update endpoints will respond with a JSON representation of the new object.  All properties are optional, with the exception of 'task' for new properties.  In the case of updates,
+    only included properties will be modified with the rest of the object left unchanged.
+
+  %h2
+    New Items
+
+  %p
+    To add a new item to the system, you will need to make a
+    %code POST
+    to the
+    %code /entries
+    endpoint.
+
+  %h2 Updating Existing Items
+
+  %p
+    Existing items are updating by making
+    %code PUT
+    requests to the item's endpoint:
+    %code /entries/:ID
+
+  %p
+    The ID for the item will always be included in the response payload, as well as from either of the list APIs.
+
+
+
+

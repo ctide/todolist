@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
 
   def get_api_key
     if api_key = params[:authentication_token].blank? && request.headers["X-AUTHENTICATION-TOKEN"]
+      logger.warn( api_key)
       params[:authentication_token] = api_key
     end
   end

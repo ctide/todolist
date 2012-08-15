@@ -10,5 +10,6 @@ class User < ActiveRecord::Base
   #
   has_many :entries
   has_many :undone_entries, :source => :entries, :class_name => "Entry", :conditions => { :entries => { :completed => false } }
+  has_many :finished_entries, :source => :entries, :class_name => "Entry", :conditions => { :entries => { :completed => true } }
 
 end

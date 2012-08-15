@@ -40,4 +40,36 @@ describe EntriesController do
     end
   end
 
+  context '#todo_list' do
+    context 'valid' do
+      before :each do
+        @u = FactoryGirl.create(:user)
+        sign_in(@u)
+        @e = FactoryGirl.create(:entry, :user => @u)
+      end
+
+      it 'should return all items that are not completed' do
+        get :todo_list
+        response.should be_success
+        response.body.should eq(@u.undone_entries.to_json)
+      end
+    end
+  end
+
+  context '#finished_items' do
+    context 'valid' do
+      before :each do
+        @u = FactoryGirl.create(:user)
+        sign_in(@u)
+        @e = FactoryGirl.create(:entry, :user => @u, :completed => true)
+      end
+
+      it 'should return all items that are not completed' do
+        get :finished_items
+        response.should be_success
+        response.body.should eq(@u.finished_entries.to_json)
+      end
+    end
+  end
+
 end
