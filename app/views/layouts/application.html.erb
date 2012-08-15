@@ -43,6 +43,10 @@
               <ul class="nav pull-right">
                 <li><%= link_to "Logout", :destroy_user_session, :method => :delete %></li>
               </ul>
+            <% else %>
+              <ul class="nav pull-right">
+                <li><%= link_to "Login", :new_user_session %></li>
+              </ul>
             <% end %>
           </div><!--/.nav-collapse -->
         </div>
