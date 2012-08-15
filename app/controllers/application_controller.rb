@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
               :with => :handle_access_denied unless Rails.env.development?
   protect_from_forgery
   prepend_before_filter :get_api_key
+  before_filter :instantiate_controller_and_action_names
+  caches_action :instantiate_controller_and_action_names
 
   def handle_access_denied(exception)
     log_message = "WARNING: #{exception.class} (#{exception.message}) raised by "
@@ -16,6 +18,11 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to root_url }
       format.json { render :json => { :success => false, :error => "Action prohibited." }, :status => 403 }
     end
+  end
+
+  def instantiate_controller_and_action_names
+    @current_action = action_name
+    @current_controller = controller_name
   end
 
   def get_api_key

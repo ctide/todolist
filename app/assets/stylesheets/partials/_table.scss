@@ -60,3 +60,26 @@ span.contents {
   line-height: 28px;
   margin-left: 5px;
 }
+
+.tablesorter-header {
+  cursor: pointer;
+  div {
+    margin-left: 13px;
+  }
+}
+
+.tablesorter-headerSortDown div {
+  margin-left: 0px;
+  &:before {
+    content: '▼';
+  }
+}
+
+.tablesorter-headerSortUp div {
+  margin-left: 0px;
+  &:before {
+    content: '▲';
+  }
+}
+
+

@@ -3,6 +3,7 @@ Todolist::Application.routes.draw do
 
   get '/todo_list' => 'entries#todo_list'
   post '/authentication_token' => 'api#authentication_token', :as => :authentication_token
+  get '/api' => 'api#index'
 
   resources :entries
 
